@@ -1,0 +1,3 @@
+# Serve the application through public/ only. Protect this root under XAMPP.
+# The loopback development server serves public/ and ignores this file.
+Require all denied

@@ -1,0 +1,244 @@
+@font-face {
+  font-family: NotoArabic;
+  src: url('/fonts/NotoSansArabic.ttf');
+  font-weight: 100 900;
+  font-display: swap;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  background: #f2f3f7;
+  color: #303647;
+  font-family:
+    NotoArabic,
+    Segoe UI,
+    sans-serif;
+  font-size: 13px;
+  line-height: 1.8;
+}
+.document-toolbar {
+  max-width: 960px;
+  margin: 20px auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  font-size: 12px;
+  padding: 0 15px;
+}
+.document-toolbar a {
+  color: #7462bd;
+  text-decoration: none;
+}
+.document-toolbar button {
+  background: #6954cb;
+  color: white;
+  border: 0;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font: inherit;
+  cursor: pointer;
+}
+.document-toolbar span {
+  color: #687386;
+}
+.document {
+  max-width: 960px;
+  margin: 25px auto;
+  background: #fff;
+  padding: 50px;
+  border: 1px solid #e4e6ef;
+  border-radius: 15px;
+  box-shadow: 0 5px 25px #29315108;
+}
+header {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  border-bottom: 1px solid #e7e7ef;
+  padding-bottom: 28px;
+}
+.brand-name {
+  font-family:
+    Segoe UI,
+    sans-serif;
+  font-size: 24px;
+  color: #7765ce;
+  font-weight: 700;
+}
+h1 {
+  font-size: 19px;
+  margin: 8px 0 0;
+}
+h2 {
+  font-size: 14px;
+  margin: 6px 0;
+}
+p {
+  margin: 3px 0;
+  color: #687386;
+  font-size: 12px;
+}
+.document-code {
+  text-align: left;
+}
+.document-code span {
+  display: block;
+  color: #687386;
+  font-size: 12px;
+}
+.document-code strong {
+  display: block;
+  font:
+    600 17px Segoe UI,
+    sans-serif;
+  color: #665d8f;
+  margin: 8px 0;
+}
+.document-code small {
+  display: block;
+  color: #687386;
+}
+.document-code b {
+  display: block;
+  font-size: 12px;
+  color: #4b927d;
+  margin-top: 8px;
+}
+.parties {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 28px 0;
+  gap: 20px;
+}
+.parties span {
+  color: #687386;
+  font-size: 12px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: right;
+}
+th {
+  background: #f5f4fa;
+  color: #8b849c;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 12px;
+}
+td {
+  font-size: 12px;
+  padding: 13px 12px;
+  border-bottom: 1px solid #f0f0f4;
+}
+td strong {
+  font-weight: 550;
+}
+td small {
+  display: block;
+  color: #687386;
+  font-size: 11px;
+}
+.totals {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin: 28px 0;
+}
+.totals > div {
+  background: #f7f8fb;
+  padding: 17px;
+  border-radius: 9px;
+}
+.totals span {
+  font-size: 11px;
+  color: #687386;
+  display: block;
+}
+.totals strong {
+  font-size: 22px;
+  font-weight: 600;
+}
+.totals small {
+  font:
+    10px Segoe UI,
+    sans-serif;
+  color: #687386;
+}
+.totals .debt {
+  background: #f0edf9;
+  color: #7e6abd;
+}
+.section-title {
+  margin-bottom: 15px;
+}
+.document-notice {
+  margin-top: 28px;
+  padding: 14px;
+  background: #f8f8fb;
+  color: #687386;
+  font-size: 11px;
+  border-radius: 8px;
+}
+footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 32px;
+  color: #687386;
+  font-size: 11px;
+}
+@media (max-width: 700px) {
+  .document {
+    margin: 12px;
+    padding: 22px;
+  }
+  .document-toolbar span {
+    display: none;
+  }
+  .totals {
+    grid-template-columns: 1fr;
+  }
+  .parties {
+    grid-template-columns: 1fr;
+  }
+  table {
+    display: block;
+    overflow: auto;
+    white-space: nowrap;
+  }
+}
+@media print {
+  @page {
+    size: A4;
+    margin: 16mm;
+  }
+  body {
+    background: #fff;
+  }
+  .document-toolbar {
+    display: none;
+  }
+  .document {
+    border: 0;
+    box-shadow: none;
+    padding: 0;
+    margin: 0;
+    max-width: none;
+    border-radius: 0;
+  }
+  .totals {
+    break-inside: avoid;
+  }
+  tr {
+    break-inside: avoid;
+  }
+  thead {
+    display: table-header-group;
+  }
+  footer {
+    margin-top: 24px;
+  }
+}

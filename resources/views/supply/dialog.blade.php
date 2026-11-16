@@ -1,0 +1,2 @@
+<dialog id="supply-dialog" class="supply-dialog" aria-labelledby="supply-dialog-title"><div class="dialog-heading"><div><span class="eyebrow">AMRBIT / SUPPLY CHAIN</span><h2 id="supply-dialog-title"></h2></div><button type="button" class="icon-btn" data-supply-close aria-label="إغلاق التفاصيل">×</button></div><div id="supply-dialog-content"></div></dialog>
+<div id="supply-toast" class="custody-toast" role="status" hidden></div>

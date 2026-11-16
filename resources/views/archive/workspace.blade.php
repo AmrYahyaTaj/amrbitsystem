@@ -1,0 +1,11 @@
+<section class="quality-shell" id="archive-workspace">
+<div class="quality-banner"><div><span class="quality-eyebrow">ARCHIVE / DOCUMENTS & EVIDENCE</span><h2>ملفات كل قسم. وسجل واضح لكل نسخة.</h2><p>محاضر، مستندات، ونسخ موقعة مرتبطة بأقسامها، مع صلاحيات منفصلة يمنحها المدير ومراجعة مستقلة للنسخ.</p></div><span class="quality-seal" aria-hidden="true">▤</span></div>
+<div class="quality-metrics" id="archive-metrics"></div>
+<div class="archive-departments" id="archive-departments"></div>
+<form id="archive-filters" class="quality-filters"><label>ابحث في الأرشيف<input type="search" name="q" maxlength="100" placeholder="عنوان، مرجع، نوع المستند…"></label><label>القسم<select name="department_id"><option value="">الأقسام المسموحة</option></select></label><label>الحالة<select name="status"><option value="">جميع الحالات</option><option value="pending_review">ينتظر المراجعة</option><option value="approved">معتمد</option><option value="returned">معاد للاستكمال</option></select></label><button class="primary-btn">بحث</button></form>
+<div class="quality-actions"><button class="primary-btn" type="button" id="archive-upload" hidden>إضافة مستند</button><button class="secondary-btn" type="button" id="archive-permissions" hidden>المستخدمون وصلاحيات الأقسام</button><button class="secondary-btn" type="button" id="archive-department" hidden>إدارة الأقسام</button><button class="secondary-btn" type="button" id="archive-import" hidden>ربط محاضر سابقة</button><button class="secondary-btn" type="button" id="archive-export" hidden>تصدير بيانات المستندات</button></div>
+<div class="quality-hint">النسخة الجديدة تحفظ السابقة وتنتظر المراجعة. تتطلب الموافقة مستخدمًا غير منشئ المستند ورافع النسخة. حالة «نسخة موقعة» توثق وصف الرافع للملف.</div>
+<div id="archive-results" aria-live="polite"><div class="loading">نحمّل ملفات الأقسام…</div></div><div id="archive-pagination" class="quality-pagination"></div>
+</section>
+<dialog id="archive-dialog" class="quality-dialog" aria-labelledby="archive-dialog-title"><div class="dialog-heading"><h2 id="archive-dialog-title">ملف المستند</h2><button class="icon-btn" type="button" data-archive-close aria-label="إغلاق">×</button></div><div id="archive-dialog-content"></div></dialog>
+<div id="archive-toast" class="toast" role="status" hidden></div>

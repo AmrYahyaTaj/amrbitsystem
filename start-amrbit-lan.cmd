@@ -1,0 +1,4 @@
+@echo off
+title amrbit - Local network
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File "%~dp0scripts\start-lan.ps1"
+pause

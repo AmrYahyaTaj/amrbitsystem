@@ -1,0 +1,9 @@
+<section class="quality-shell" id="delegation-workspace">
+<div class="quality-banner"><div><span class="quality-eyebrow">TEMPORARY COVERAGE / SCOPED AUTHORITY</span><h2>بديل واضح. فترة محددة. مسؤولية محفوظة.</h2><p>تفويض الجودة أو مراجعة الأرشيف لنطاق واحد، بإقرار البديل. تُسجّل الإجراءات باسم منفذها ومصدر تفويضه، وتبقى ضوابط الاستقلال نافذة.</p></div><span class="quality-seal" aria-hidden="true">⇄</span></div>
+<div class="quality-hint">التفويض لا يغيّر دور المستخدم أو ينقل عهدة. يبدأ بعد القبول وفي موعده، ويتوقف بانتهاء الفترة أو الإلغاء أو فقد صلاحية الأصل. الحد الأقصى للفترة 30 يومًا.</div>
+<form id="delegation-filters" class="quality-filters"><label>ابحث برقم التفويض<input name="q" type="search" maxlength="80" placeholder="DL-…"></label><label>المهمة<select name="domain"><option value="">جميع المهام</option><option value="quality_inspect">فحص الجودة</option><option value="quality_approve">اعتماد الجودة</option><option value="archive_review">مراجعة الأرشيف</option></select></label><button class="primary-btn">بحث</button><button type="button" class="secondary-btn" id="delegation-create" hidden>إنشاء تفويض</button></form>
+<div id="delegation-results" aria-live="polite"><div class="loading">نحمّل تفويضاتك…</div></div><div id="delegation-pagination" class="quality-pagination"></div>
+</section>
+<dialog id="delegation-dialog" class="quality-dialog" aria-labelledby="delegation-dialog-title"><div class="dialog-heading"><h2 id="delegation-dialog-title">ملف التفويض</h2><button class="icon-btn" type="button" data-delegation-close aria-label="إغلاق">×</button></div><div id="delegation-dialog-content"></div></dialog>
+<div id="delegation-toast" class="toast" role="status" hidden></div>
+<?php /**PATH C:\xampp\htdocs\fieldflow-next\resources\views/delegations/workspace.blade.php ENDPATH**/ ?>

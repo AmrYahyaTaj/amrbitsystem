@@ -1,0 +1,4955 @@
+{
+    "inspected_at": "2026-10-25T06:36:43+00:00",
+    "database": "C:/xampp/htdocs/fieldflow-next/database/database.sqlite",
+    "tables": [
+        {
+            "name": "areas",
+            "sql": "CREATE TABLE \"areas\" (\"id\" integer primary key autoincrement not null, \"company_id\" integer not null, \"name\" varchar not null, \"city\" varchar not null, \"created_at\" datetime, \"updated_at\" datetime, foreign key(\"company_id\") references \"companies\"(\"id\") on delete restrict)",
+            "columns": [
+                {
+                    "cid": 0,
+                    "name": "id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 1
+                },
+                {
+                    "cid": 1,
+                    "name": "company_id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 2,
+                    "name": "name",
+                    "type": "varchar",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 3,
+                    "name": "city",
+                    "type": "varchar",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 4,
+                    "name": "created_at",
+                    "type": "datetime",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 5,
+                    "name": "updated_at",
+                    "type": "datetime",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                }
+            ],
+            "foreign_keys": [
+                {
+                    "id": 0,
+                    "seq": 0,
+                    "table": "companies",
+                    "from": "company_id",
+                    "to": "id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                }
+            ],
+            "indexes": [
+                {
+                    "seq": 0,
+                    "name": "areas_id_company_id_unique",
+                    "unique": 1,
+                    "origin": "c",
+                    "partial": 0,
+                    "columns": [
+                        "id",
+                        "company_id"
+                    ]
+                },
+                {
+                    "seq": 1,
+                    "name": "areas_company_id_name_unique",
+                    "unique": 1,
+                    "origin": "c",
+                    "partial": 0,
+                    "columns": [
+                        "company_id",
+                        "name"
+                    ]
+                }
+            ],
+            "row_count": 8
+        },
+        {
+            "name": "audit_logs",
+            "sql": "CREATE TABLE \"audit_logs\" (\"id\" integer primary key autoincrement not null, \"company_id\" integer not null, \"actor_id\" integer, \"action\" varchar not null, \"subject_type\" varchar not null, \"subject_id\" integer not null, \"metadata\" text, \"created_at\" datetime not null, foreign key(\"company_id\") references \"companies\"(\"id\") on delete restrict, foreign key(\"actor_id\") references \"users\"(\"id\") on delete restrict)",
+            "columns": [
+                {
+                    "cid": 0,
+                    "name": "id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 1
+                },
+                {
+                    "cid": 1,
+                    "name": "company_id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 2,
+                    "name": "actor_id",
+                    "type": "INTEGER",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 3,
+                    "name": "action",
+                    "type": "varchar",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 4,
+                    "name": "subject_type",
+                    "type": "varchar",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 5,
+                    "name": "subject_id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 6,
+                    "name": "metadata",
+                    "type": "TEXT",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 7,
+                    "name": "created_at",
+                    "type": "datetime",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                }
+            ],
+            "foreign_keys": [
+                {
+                    "id": 0,
+                    "seq": 0,
+                    "table": "users",
+                    "from": "actor_id",
+                    "to": "id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                },
+                {
+                    "id": 1,
+                    "seq": 0,
+                    "table": "companies",
+                    "from": "company_id",
+                    "to": "id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                }
+            ],
+            "indexes": [
+                {
+                    "seq": 0,
+                    "name": "audit_logs_company_id_created_at_index",
+                    "unique": 0,
+                    "origin": "c",
+                    "partial": 0,
+                    "columns": [
+                        "company_id",
+                        "created_at"
+                    ]
+                }
+            ],
+            "row_count": 27
+        },
+        {
+            "name": "cache",
+            "sql": "CREATE TABLE \"cache\" (\"key\" varchar not null, \"value\" text not null, \"expiration\" integer not null, primary key (\"key\"))",
+            "columns": [
+                {
+                    "cid": 0,
+                    "name": "key",
+                    "type": "varchar",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 1
+                },
+                {
+                    "cid": 1,
+                    "name": "value",
+                    "type": "TEXT",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 2,
+                    "name": "expiration",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                }
+            ],
+            "foreign_keys": [],
+            "indexes": [
+                {
+                    "seq": 0,
+                    "name": "cache_expiration_index",
+                    "unique": 0,
+                    "origin": "c",
+                    "partial": 0,
+                    "columns": [
+                        "expiration"
+                    ]
+                },
+                {
+                    "seq": 1,
+                    "name": "sqlite_autoindex_cache_1",
+                    "unique": 1,
+                    "origin": "pk",
+                    "partial": 0,
+                    "columns": [
+                        "key"
+                    ]
+                }
+            ],
+            "row_count": 48
+        },
+        {
+            "name": "cache_locks",
+            "sql": "CREATE TABLE \"cache_locks\" (\"key\" varchar not null, \"owner\" varchar not null, \"expiration\" integer not null, primary key (\"key\"))",
+            "columns": [
+                {
+                    "cid": 0,
+                    "name": "key",
+                    "type": "varchar",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 1
+                },
+                {
+                    "cid": 1,
+                    "name": "owner",
+                    "type": "varchar",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 2,
+                    "name": "expiration",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                }
+            ],
+            "foreign_keys": [],
+            "indexes": [
+                {
+                    "seq": 0,
+                    "name": "cache_locks_expiration_index",
+                    "unique": 0,
+                    "origin": "c",
+                    "partial": 0,
+                    "columns": [
+                        "expiration"
+                    ]
+                },
+                {
+                    "seq": 1,
+                    "name": "sqlite_autoindex_cache_locks_1",
+                    "unique": 1,
+                    "origin": "pk",
+                    "partial": 0,
+                    "columns": [
+                        "key"
+                    ]
+                }
+            ],
+            "row_count": 0
+        },
+        {
+            "name": "cash_handovers",
+            "sql": "CREATE TABLE \"cash_handovers\" (\"id\" integer primary key autoincrement not null, \"company_id\" integer not null, \"code\" varchar not null, \"collector_id\" integer not null, \"requested_by\" integer not null, \"amount_minor\" integer not null, \"status\" varchar not null default 'pending', \"reference\" varchar not null, \"note\" varchar, \"reviewed_by\" integer, \"reviewed_at\" datetime, \"review_note\" varchar, \"created_at\" datetime, \"updated_at\" datetime, foreign key(\"company_id\") references \"companies\"(\"id\") on delete restrict, foreign key(\"requested_by\") references \"users\"(\"id\") on delete restrict, foreign key(\"reviewed_by\") references \"users\"(\"id\") on delete restrict, foreign key(\"company_id\", \"collector_id\") references \"company_user\"(\"company_id\", \"user_id\") on delete restrict)",
+            "columns": [
+                {
+                    "cid": 0,
+                    "name": "id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 1
+                },
+                {
+                    "cid": 1,
+                    "name": "company_id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 2,
+                    "name": "code",
+                    "type": "varchar",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 3,
+                    "name": "collector_id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 4,
+                    "name": "requested_by",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 5,
+                    "name": "amount_minor",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 6,
+                    "name": "status",
+                    "type": "varchar",
+                    "notnull": 1,
+                    "dflt_value": "'pending'",
+                    "pk": 0
+                },
+                {
+                    "cid": 7,
+                    "name": "reference",
+                    "type": "varchar",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 8,
+                    "name": "note",
+                    "type": "varchar",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 9,
+                    "name": "reviewed_by",
+                    "type": "INTEGER",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 10,
+                    "name": "reviewed_at",
+                    "type": "datetime",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 11,
+                    "name": "review_note",
+                    "type": "varchar",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 12,
+                    "name": "created_at",
+                    "type": "datetime",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 13,
+                    "name": "updated_at",
+                    "type": "datetime",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                }
+            ],
+            "foreign_keys": [
+                {
+                    "id": 0,
+                    "seq": 0,
+                    "table": "company_user",
+                    "from": "company_id",
+                    "to": "company_id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                },
+                {
+                    "id": 0,
+                    "seq": 1,
+                    "table": "company_user",
+                    "from": "collector_id",
+                    "to": "user_id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                },
+                {
+                    "id": 1,
+                    "seq": 0,
+                    "table": "users",
+                    "from": "reviewed_by",
+                    "to": "id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                },
+                {
+                    "id": 2,
+                    "seq": 0,
+                    "table": "users",
+                    "from": "requested_by",
+                    "to": "id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                },
+                {
+                    "id": 3,
+                    "seq": 0,
+                    "table": "companies",
+                    "from": "company_id",
+                    "to": "id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                }
+            ],
+            "indexes": [
+                {
+                    "seq": 0,
+                    "name": "cash_handovers_company_id_collector_id_status_index",
+                    "unique": 0,
+                    "origin": "c",
+                    "partial": 0,
+                    "columns": [
+                        "company_id",
+                        "collector_id",
+                        "status"
+                    ]
+                },
+                {
+                    "seq": 1,
+                    "name": "cash_handovers_company_id_code_unique",
+                    "unique": 1,
+                    "origin": "c",
+                    "partial": 0,
+                    "columns": [
+                        "company_id",
+                        "code"
+                    ]
+                }
+            ],
+            "row_count": 1
+        },
+        {
+            "name": "collections",
+            "sql": "CREATE TABLE \"collections\" (\"id\" integer primary key autoincrement not null, \"company_id\" integer not null, \"order_id\" integer not null, \"actor_id\" integer not null, \"receipt\" varchar not null, \"amount_minor\" integer not null, \"method\" varchar not null, \"collected_at\" datetime not null, foreign key(\"company_id\") references \"companies\"(\"id\") on delete restrict, foreign key(\"actor_id\") references \"users\"(\"id\"), foreign key(\"order_id\", \"company_id\") references \"orders\"(\"id\", \"company_id\") on delete restrict)",
+            "columns": [
+                {
+                    "cid": 0,
+                    "name": "id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 1
+                },
+                {
+                    "cid": 1,
+                    "name": "company_id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 2,
+                    "name": "order_id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 3,
+                    "name": "actor_id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 4,
+                    "name": "receipt",
+                    "type": "varchar",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 5,
+                    "name": "amount_minor",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 6,
+                    "name": "method",
+                    "type": "varchar",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 7,
+                    "name": "collected_at",
+                    "type": "datetime",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                }
+            ],
+            "foreign_keys": [
+                {
+                    "id": 0,
+                    "seq": 0,
+                    "table": "orders",
+                    "from": "order_id",
+                    "to": "id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                },
+                {
+                    "id": 0,
+                    "seq": 1,
+                    "table": "orders",
+                    "from": "company_id",
+                    "to": "company_id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                },
+                {
+                    "id": 1,
+                    "seq": 0,
+                    "table": "users",
+                    "from": "actor_id",
+                    "to": "id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "NO ACTION",
+                    "match": "NONE"
+                },
+                {
+                    "id": 2,
+                    "seq": 0,
+                    "table": "companies",
+                    "from": "company_id",
+                    "to": "id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                }
+            ],
+            "indexes": [
+                {
+                    "seq": 0,
+                    "name": "collections_company_id_receipt_unique",
+                    "unique": 1,
+                    "origin": "c",
+                    "partial": 0,
+                    "columns": [
+                        "company_id",
+                        "receipt"
+                    ]
+                }
+            ],
+            "row_count": 88
+        },
+        {
+            "name": "companies",
+            "sql": "CREATE TABLE \"companies\" (\"id\" integer primary key autoincrement not null, \"name\" varchar not null, \"slug\" varchar not null, \"industry\" varchar not null default 'distribution', \"timezone\" varchar not null default 'Asia/Riyadh', \"currency\" varchar not null default 'SAR', \"is_active\" tinyint(1) not null default '1', \"created_at\" datetime, \"updated_at\" datetime)",
+            "columns": [
+                {
+                    "cid": 0,
+                    "name": "id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 1
+                },
+                {
+                    "cid": 1,
+                    "name": "name",
+                    "type": "varchar",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 2,
+                    "name": "slug",
+                    "type": "varchar",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 3,
+                    "name": "industry",
+                    "type": "varchar",
+                    "notnull": 1,
+                    "dflt_value": "'distribution'",
+                    "pk": 0
+                },
+                {
+                    "cid": 4,
+                    "name": "timezone",
+                    "type": "varchar",
+                    "notnull": 1,
+                    "dflt_value": "'Asia/Riyadh'",
+                    "pk": 0
+                },
+                {
+                    "cid": 5,
+                    "name": "currency",
+                    "type": "varchar",
+                    "notnull": 1,
+                    "dflt_value": "'SAR'",
+                    "pk": 0
+                },
+                {
+                    "cid": 6,
+                    "name": "is_active",
+                    "type": "tinyint(1)",
+                    "notnull": 1,
+                    "dflt_value": "'1'",
+                    "pk": 0
+                },
+                {
+                    "cid": 7,
+                    "name": "created_at",
+                    "type": "datetime",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 8,
+                    "name": "updated_at",
+                    "type": "datetime",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                }
+            ],
+            "foreign_keys": [],
+            "indexes": [
+                {
+                    "seq": 0,
+                    "name": "companies_slug_unique",
+                    "unique": 1,
+                    "origin": "c",
+                    "partial": 0,
+                    "columns": [
+                        "slug"
+                    ]
+                }
+            ],
+            "row_count": 2
+        },
+        {
+            "name": "company_user",
+            "sql": "CREATE TABLE \"company_user\" (\"id\" integer primary key autoincrement not null, \"company_id\" integer not null, \"user_id\" integer not null, \"role\" varchar not null default 'viewer', \"is_active\" tinyint(1) not null default '1', \"created_at\" datetime, \"updated_at\" datetime, \"phone\" varchar, \"employee_code\" varchar, \"area_access\" varchar not null default 'all', \"can_sell\" tinyint(1) not null default '1', \"can_collect\" tinyint(1) not null default '1', \"notes\" varchar, \"operations_version\" integer not null default '1', foreign key(\"company_id\") references \"companies\"(\"id\") on delete restrict, foreign key(\"user_id\") references \"users\"(\"id\") on delete restrict)",
+            "columns": [
+                {
+                    "cid": 0,
+                    "name": "id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 1
+                },
+                {
+                    "cid": 1,
+                    "name": "company_id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 2,
+                    "name": "user_id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 3,
+                    "name": "role",
+                    "type": "varchar",
+                    "notnull": 1,
+                    "dflt_value": "'viewer'",
+                    "pk": 0
+                },
+                {
+                    "cid": 4,
+                    "name": "is_active",
+                    "type": "tinyint(1)",
+                    "notnull": 1,
+                    "dflt_value": "'1'",
+                    "pk": 0
+                },
+                {
+                    "cid": 5,
+                    "name": "created_at",
+                    "type": "datetime",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 6,
+                    "name": "updated_at",
+                    "type": "datetime",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 7,
+                    "name": "phone",
+                    "type": "varchar",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 8,
+                    "name": "employee_code",
+                    "type": "varchar",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 9,
+                    "name": "area_access",
+                    "type": "varchar",
+                    "notnull": 1,
+                    "dflt_value": "'all'",
+                    "pk": 0
+                },
+                {
+                    "cid": 10,
+                    "name": "can_sell",
+                    "type": "tinyint(1)",
+                    "notnull": 1,
+                    "dflt_value": "'1'",
+                    "pk": 0
+                },
+                {
+                    "cid": 11,
+                    "name": "can_collect",
+                    "type": "tinyint(1)",
+                    "notnull": 1,
+                    "dflt_value": "'1'",
+                    "pk": 0
+                },
+                {
+                    "cid": 12,
+                    "name": "notes",
+                    "type": "varchar",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 13,
+                    "name": "operations_version",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": "'1'",
+                    "pk": 0
+                }
+            ],
+            "foreign_keys": [
+                {
+                    "id": 0,
+                    "seq": 0,
+                    "table": "users",
+                    "from": "user_id",
+                    "to": "id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                },
+                {
+                    "id": 1,
+                    "seq": 0,
+                    "table": "companies",
+                    "from": "company_id",
+                    "to": "id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                }
+            ],
+            "indexes": [
+                {
+                    "seq": 0,
+                    "name": "company_user_company_id_employee_code_unique",
+                    "unique": 1,
+                    "origin": "c",
+                    "partial": 0,
+                    "columns": [
+                        "company_id",
+                        "employee_code"
+                    ]
+                },
+                {
+                    "seq": 1,
+                    "name": "company_user_company_id_user_id_unique",
+                    "unique": 1,
+                    "origin": "c",
+                    "partial": 0,
+                    "columns": [
+                        "company_id",
+                        "user_id"
+                    ]
+                }
+            ],
+            "row_count": 16
+        },
+        {
+            "name": "customer_changes",
+            "sql": "CREATE TABLE \"customer_changes\" (\"id\" integer primary key autoincrement not null, \"company_id\" integer not null, \"customer_id\" integer, \"submitted_by\" integer not null, \"kind\" varchar not null, \"status\" varchar not null default 'pending', \"payload\" text not null, \"reviewed_by\" integer, \"review_note\" text, \"reviewed_at\" datetime, \"created_at\" datetime, \"updated_at\" datetime, foreign key(\"company_id\") references \"companies\"(\"id\") on delete restrict, foreign key(\"submitted_by\") references \"users\"(\"id\") on delete restrict, foreign key(\"reviewed_by\") references \"users\"(\"id\") on delete restrict, foreign key(\"customer_id\", \"company_id\") references \"customers\"(\"id\", \"company_id\") on delete restrict)",
+            "columns": [
+                {
+                    "cid": 0,
+                    "name": "id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 1
+                },
+                {
+                    "cid": 1,
+                    "name": "company_id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 2,
+                    "name": "customer_id",
+                    "type": "INTEGER",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 3,
+                    "name": "submitted_by",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 4,
+                    "name": "kind",
+                    "type": "varchar",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 5,
+                    "name": "status",
+                    "type": "varchar",
+                    "notnull": 1,
+                    "dflt_value": "'pending'",
+                    "pk": 0
+                },
+                {
+                    "cid": 6,
+                    "name": "payload",
+                    "type": "TEXT",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 7,
+                    "name": "reviewed_by",
+                    "type": "INTEGER",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 8,
+                    "name": "review_note",
+                    "type": "TEXT",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 9,
+                    "name": "reviewed_at",
+                    "type": "datetime",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 10,
+                    "name": "created_at",
+                    "type": "datetime",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 11,
+                    "name": "updated_at",
+                    "type": "datetime",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                }
+            ],
+            "foreign_keys": [
+                {
+                    "id": 0,
+                    "seq": 0,
+                    "table": "customers",
+                    "from": "customer_id",
+                    "to": "id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                },
+                {
+                    "id": 0,
+                    "seq": 1,
+                    "table": "customers",
+                    "from": "company_id",
+                    "to": "company_id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                },
+                {
+                    "id": 1,
+                    "seq": 0,
+                    "table": "users",
+                    "from": "reviewed_by",
+                    "to": "id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                },
+                {
+                    "id": 2,
+                    "seq": 0,
+                    "table": "users",
+                    "from": "submitted_by",
+                    "to": "id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                },
+                {
+                    "id": 3,
+                    "seq": 0,
+                    "table": "companies",
+                    "from": "company_id",
+                    "to": "id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                }
+            ],
+            "indexes": [
+                {
+                    "seq": 0,
+                    "name": "customer_changes_company_id_status_submitted_by_index",
+                    "unique": 0,
+                    "origin": "c",
+                    "partial": 0,
+                    "columns": [
+                        "company_id",
+                        "status",
+                        "submitted_by"
+                    ]
+                }
+            ],
+            "row_count": 0
+        },
+        {
+            "name": "customers",
+            "sql": "CREATE TABLE \"customers\" (\"id\" integer primary key autoincrement not null, \"company_id\" integer not null, \"area_id\" integer not null, \"code\" varchar not null, \"name\" varchar not null, \"phone\" varchar, \"address\" varchar not null, \"latitude\" numeric not null, \"longitude\" numeric not null, \"geofence_radius_m\" integer not null default ('150'), \"is_active\" tinyint(1) not null default ('1'), \"created_at\" datetime, \"updated_at\" datetime, \"credit_limit_minor\" integer, \"representative_id\" integer, \"service_notes\" text, \"profile_version\" integer not null default '1', foreign key(\"area_id\", \"company_id\") references areas(\"id\", \"company_id\") on delete restrict on update no action, foreign key(\"company_id\") references companies(\"id\") on delete restrict on update no action, foreign key(\"company_id\", \"representative_id\") references \"company_user\"(\"company_id\", \"user_id\") on delete restrict)",
+            "columns": [
+                {
+                    "cid": 0,
+                    "name": "id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 1
+                },
+                {
+                    "cid": 1,
+                    "name": "company_id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 2,
+                    "name": "area_id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 3,
+                    "name": "code",
+                    "type": "varchar",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 4,
+                    "name": "name",
+                    "type": "varchar",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 5,
+                    "name": "phone",
+                    "type": "varchar",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 6,
+                    "name": "address",
+                    "type": "varchar",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 7,
+                    "name": "latitude",
+                    "type": "numeric",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 8,
+                    "name": "longitude",
+                    "type": "numeric",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 9,
+                    "name": "geofence_radius_m",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": "'150'",
+                    "pk": 0
+                },
+                {
+                    "cid": 10,
+                    "name": "is_active",
+                    "type": "tinyint(1)",
+                    "notnull": 1,
+                    "dflt_value": "'1'",
+                    "pk": 0
+                },
+                {
+                    "cid": 11,
+                    "name": "created_at",
+                    "type": "datetime",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 12,
+                    "name": "updated_at",
+                    "type": "datetime",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 13,
+                    "name": "credit_limit_minor",
+                    "type": "INTEGER",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 14,
+                    "name": "representative_id",
+                    "type": "INTEGER",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 15,
+                    "name": "service_notes",
+                    "type": "TEXT",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 16,
+                    "name": "profile_version",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": "'1'",
+                    "pk": 0
+                }
+            ],
+            "foreign_keys": [
+                {
+                    "id": 0,
+                    "seq": 0,
+                    "table": "company_user",
+                    "from": "company_id",
+                    "to": "company_id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                },
+                {
+                    "id": 0,
+                    "seq": 1,
+                    "table": "company_user",
+                    "from": "representative_id",
+                    "to": "user_id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                },
+                {
+                    "id": 1,
+                    "seq": 0,
+                    "table": "companies",
+                    "from": "company_id",
+                    "to": "id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                },
+                {
+                    "id": 2,
+                    "seq": 0,
+                    "table": "areas",
+                    "from": "area_id",
+                    "to": "id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                },
+                {
+                    "id": 2,
+                    "seq": 1,
+                    "table": "areas",
+                    "from": "company_id",
+                    "to": "company_id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                }
+            ],
+            "indexes": [
+                {
+                    "seq": 0,
+                    "name": "customers_company_id_representative_id_is_active_index",
+                    "unique": 0,
+                    "origin": "c",
+                    "partial": 0,
+                    "columns": [
+                        "company_id",
+                        "representative_id",
+                        "is_active"
+                    ]
+                },
+                {
+                    "seq": 1,
+                    "name": "customers_id_company_id_unique",
+                    "unique": 1,
+                    "origin": "c",
+                    "partial": 0,
+                    "columns": [
+                        "id",
+                        "company_id"
+                    ]
+                },
+                {
+                    "seq": 2,
+                    "name": "customers_company_id_code_unique",
+                    "unique": 1,
+                    "origin": "c",
+                    "partial": 0,
+                    "columns": [
+                        "company_id",
+                        "code"
+                    ]
+                },
+                {
+                    "seq": 3,
+                    "name": "customers_company_id_area_id_index",
+                    "unique": 0,
+                    "origin": "c",
+                    "partial": 0,
+                    "columns": [
+                        "company_id",
+                        "area_id"
+                    ]
+                }
+            ],
+            "row_count": 48
+        },
+        {
+            "name": "debt_followups",
+            "sql": "CREATE TABLE \"debt_followups\" (\"id\" integer primary key autoincrement not null, \"company_id\" integer not null, \"order_id\" integer not null, \"actor_id\" integer not null, \"outcome\" varchar not null, \"note\" varchar not null, \"next_followup_date\" date not null, \"promised_minor\" integer, \"created_at\" datetime not null, foreign key(\"company_id\") references \"companies\"(\"id\") on delete restrict, foreign key(\"actor_id\") references \"users\"(\"id\") on delete restrict, foreign key(\"order_id\", \"company_id\") references \"orders\"(\"id\", \"company_id\") on delete restrict)",
+            "columns": [
+                {
+                    "cid": 0,
+                    "name": "id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 1
+                },
+                {
+                    "cid": 1,
+                    "name": "company_id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 2,
+                    "name": "order_id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 3,
+                    "name": "actor_id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 4,
+                    "name": "outcome",
+                    "type": "varchar",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 5,
+                    "name": "note",
+                    "type": "varchar",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 6,
+                    "name": "next_followup_date",
+                    "type": "date",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 7,
+                    "name": "promised_minor",
+                    "type": "INTEGER",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 8,
+                    "name": "created_at",
+                    "type": "datetime",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                }
+            ],
+            "foreign_keys": [
+                {
+                    "id": 0,
+                    "seq": 0,
+                    "table": "orders",
+                    "from": "order_id",
+                    "to": "id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                },
+                {
+                    "id": 0,
+                    "seq": 1,
+                    "table": "orders",
+                    "from": "company_id",
+                    "to": "company_id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                },
+                {
+                    "id": 1,
+                    "seq": 0,
+                    "table": "users",
+                    "from": "actor_id",
+                    "to": "id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                },
+                {
+                    "id": 2,
+                    "seq": 0,
+                    "table": "companies",
+                    "from": "company_id",
+                    "to": "id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                }
+            ],
+            "indexes": [
+                {
+                    "seq": 0,
+                    "name": "debt_followups_company_id_next_followup_date_index",
+                    "unique": 0,
+                    "origin": "c",
+                    "partial": 0,
+                    "columns": [
+                        "company_id",
+                        "next_followup_date"
+                    ]
+                }
+            ],
+            "row_count": 2
+        },
+        {
+            "name": "drivers",
+            "sql": "CREATE TABLE \"drivers\" (\"id\" integer primary key autoincrement not null, \"company_id\" integer not null, \"name\" varchar not null, \"phone\" varchar, \"employee_code\" varchar not null, \"license_number\" varchar, \"license_expires_on\" date, \"status\" varchar not null default 'active', \"notes\" varchar, \"created_at\" datetime, \"updated_at\" datetime, foreign key(\"company_id\") references \"companies\"(\"id\") on delete restrict)",
+            "columns": [
+                {
+                    "cid": 0,
+                    "name": "id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 1
+                },
+                {
+                    "cid": 1,
+                    "name": "company_id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 2,
+                    "name": "name",
+                    "type": "varchar",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 3,
+                    "name": "phone",
+                    "type": "varchar",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 4,
+                    "name": "employee_code",
+                    "type": "varchar",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 5,
+                    "name": "license_number",
+                    "type": "varchar",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 6,
+                    "name": "license_expires_on",
+                    "type": "date",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 7,
+                    "name": "status",
+                    "type": "varchar",
+                    "notnull": 1,
+                    "dflt_value": "'active'",
+                    "pk": 0
+                },
+                {
+                    "cid": 8,
+                    "name": "notes",
+                    "type": "varchar",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 9,
+                    "name": "created_at",
+                    "type": "datetime",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 10,
+                    "name": "updated_at",
+                    "type": "datetime",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                }
+            ],
+            "foreign_keys": [
+                {
+                    "id": 0,
+                    "seq": 0,
+                    "table": "companies",
+                    "from": "company_id",
+                    "to": "id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                }
+            ],
+            "indexes": [
+                {
+                    "seq": 0,
+                    "name": "drivers_id_company_id_unique",
+                    "unique": 1,
+                    "origin": "c",
+                    "partial": 0,
+                    "columns": [
+                        "id",
+                        "company_id"
+                    ]
+                },
+                {
+                    "seq": 1,
+                    "name": "drivers_company_id_employee_code_unique",
+                    "unique": 1,
+                    "origin": "c",
+                    "partial": 0,
+                    "columns": [
+                        "company_id",
+                        "employee_code"
+                    ]
+                }
+            ],
+            "row_count": 1
+        },
+        {
+            "name": "failed_jobs",
+            "sql": "CREATE TABLE \"failed_jobs\" (\"id\" integer primary key autoincrement not null, \"uuid\" varchar not null, \"connection\" text not null, \"queue\" text not null, \"payload\" text not null, \"exception\" text not null, \"failed_at\" datetime not null default CURRENT_TIMESTAMP)",
+            "columns": [
+                {
+                    "cid": 0,
+                    "name": "id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 1
+                },
+                {
+                    "cid": 1,
+                    "name": "uuid",
+                    "type": "varchar",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 2,
+                    "name": "connection",
+                    "type": "TEXT",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 3,
+                    "name": "queue",
+                    "type": "TEXT",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 4,
+                    "name": "payload",
+                    "type": "TEXT",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 5,
+                    "name": "exception",
+                    "type": "TEXT",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 6,
+                    "name": "failed_at",
+                    "type": "datetime",
+                    "notnull": 1,
+                    "dflt_value": "CURRENT_TIMESTAMP",
+                    "pk": 0
+                }
+            ],
+            "foreign_keys": [],
+            "indexes": [
+                {
+                    "seq": 0,
+                    "name": "failed_jobs_uuid_unique",
+                    "unique": 1,
+                    "origin": "c",
+                    "partial": 0,
+                    "columns": [
+                        "uuid"
+                    ]
+                }
+            ],
+            "row_count": 0
+        },
+        {
+            "name": "job_batches",
+            "sql": "CREATE TABLE \"job_batches\" (\"id\" varchar not null, \"name\" varchar not null, \"total_jobs\" integer not null, \"pending_jobs\" integer not null, \"failed_jobs\" integer not null, \"failed_job_ids\" text not null, \"options\" text, \"cancelled_at\" integer, \"created_at\" integer not null, \"finished_at\" integer, primary key (\"id\"))",
+            "columns": [
+                {
+                    "cid": 0,
+                    "name": "id",
+                    "type": "varchar",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 1
+                },
+                {
+                    "cid": 1,
+                    "name": "name",
+                    "type": "varchar",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 2,
+                    "name": "total_jobs",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 3,
+                    "name": "pending_jobs",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 4,
+                    "name": "failed_jobs",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 5,
+                    "name": "failed_job_ids",
+                    "type": "TEXT",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 6,
+                    "name": "options",
+                    "type": "TEXT",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 7,
+                    "name": "cancelled_at",
+                    "type": "INTEGER",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 8,
+                    "name": "created_at",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 9,
+                    "name": "finished_at",
+                    "type": "INTEGER",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                }
+            ],
+            "foreign_keys": [],
+            "indexes": [
+                {
+                    "seq": 0,
+                    "name": "sqlite_autoindex_job_batches_1",
+                    "unique": 1,
+                    "origin": "pk",
+                    "partial": 0,
+                    "columns": [
+                        "id"
+                    ]
+                }
+            ],
+            "row_count": 0
+        },
+        {
+            "name": "jobs",
+            "sql": "CREATE TABLE \"jobs\" (\"id\" integer primary key autoincrement not null, \"queue\" varchar not null, \"payload\" text not null, \"attempts\" integer not null, \"reserved_at\" integer, \"available_at\" integer not null, \"created_at\" integer not null)",
+            "columns": [
+                {
+                    "cid": 0,
+                    "name": "id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 1
+                },
+                {
+                    "cid": 1,
+                    "name": "queue",
+                    "type": "varchar",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 2,
+                    "name": "payload",
+                    "type": "TEXT",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 3,
+                    "name": "attempts",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 4,
+                    "name": "reserved_at",
+                    "type": "INTEGER",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 5,
+                    "name": "available_at",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 6,
+                    "name": "created_at",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                }
+            ],
+            "foreign_keys": [],
+            "indexes": [
+                {
+                    "seq": 0,
+                    "name": "jobs_queue_index",
+                    "unique": 0,
+                    "origin": "c",
+                    "partial": 0,
+                    "columns": [
+                        "queue"
+                    ]
+                }
+            ],
+            "row_count": 0
+        },
+        {
+            "name": "location_points",
+            "sql": "CREATE TABLE \"location_points\" (\"id\" integer primary key autoincrement not null, \"company_id\" integer not null, \"trip_id\" integer not null, \"user_id\" integer not null, \"event_id\" varchar not null, \"latitude\" numeric not null, \"longitude\" numeric not null, \"accuracy_m\" integer not null, \"speed_kmh\" numeric, \"captured_at\" datetime not null, \"received_at\" datetime not null, \"source\" varchar not null default 'web', \"quality\" varchar not null default 'accepted', foreign key(\"company_id\") references \"companies\"(\"id\") on delete restrict, foreign key(\"user_id\") references \"users\"(\"id\"), foreign key(\"trip_id\", \"company_id\") references \"trips\"(\"id\", \"company_id\") on delete restrict)",
+            "columns": [
+                {
+                    "cid": 0,
+                    "name": "id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 1
+                },
+                {
+                    "cid": 1,
+                    "name": "company_id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 2,
+                    "name": "trip_id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 3,
+                    "name": "user_id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 4,
+                    "name": "event_id",
+                    "type": "varchar",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 5,
+                    "name": "latitude",
+                    "type": "numeric",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 6,
+                    "name": "longitude",
+                    "type": "numeric",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 7,
+                    "name": "accuracy_m",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 8,
+                    "name": "speed_kmh",
+                    "type": "numeric",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 9,
+                    "name": "captured_at",
+                    "type": "datetime",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 10,
+                    "name": "received_at",
+                    "type": "datetime",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 11,
+                    "name": "source",
+                    "type": "varchar",
+                    "notnull": 1,
+                    "dflt_value": "'web'",
+                    "pk": 0
+                },
+                {
+                    "cid": 12,
+                    "name": "quality",
+                    "type": "varchar",
+                    "notnull": 1,
+                    "dflt_value": "'accepted'",
+                    "pk": 0
+                }
+            ],
+            "foreign_keys": [
+                {
+                    "id": 0,
+                    "seq": 0,
+                    "table": "trips",
+                    "from": "trip_id",
+                    "to": "id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                },
+                {
+                    "id": 0,
+                    "seq": 1,
+                    "table": "trips",
+                    "from": "company_id",
+                    "to": "company_id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                },
+                {
+                    "id": 1,
+                    "seq": 0,
+                    "table": "users",
+                    "from": "user_id",
+                    "to": "id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "NO ACTION",
+                    "match": "NONE"
+                },
+                {
+                    "id": 2,
+                    "seq": 0,
+                    "table": "companies",
+                    "from": "company_id",
+                    "to": "id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                }
+            ],
+            "indexes": [
+                {
+                    "seq": 0,
+                    "name": "location_points_company_id_trip_id_captured_at_index",
+                    "unique": 0,
+                    "origin": "c",
+                    "partial": 0,
+                    "columns": [
+                        "company_id",
+                        "trip_id",
+                        "captured_at"
+                    ]
+                },
+                {
+                    "seq": 1,
+                    "name": "location_points_company_id_event_id_unique",
+                    "unique": 1,
+                    "origin": "c",
+                    "partial": 0,
+                    "columns": [
+                        "company_id",
+                        "event_id"
+                    ]
+                }
+            ],
+            "row_count": 180
+        },
+        {
+            "name": "migrations",
+            "sql": "CREATE TABLE \"migrations\" (\"id\" integer primary key autoincrement not null, \"migration\" varchar not null, \"batch\" integer not null)",
+            "columns": [
+                {
+                    "cid": 0,
+                    "name": "id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 1
+                },
+                {
+                    "cid": 1,
+                    "name": "migration",
+                    "type": "varchar",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 2,
+                    "name": "batch",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                }
+            ],
+            "foreign_keys": [],
+            "indexes": [],
+            "row_count": 15
+        },
+        {
+            "name": "operation_receipts",
+            "sql": "CREATE TABLE \"operation_receipts\" (\"id\" integer primary key autoincrement not null, \"company_id\" integer not null, \"user_id\" integer not null, \"request_id\" varchar not null, \"action\" varchar not null, \"payload_hash\" varchar not null, \"result\" text, \"created_at\" datetime, \"updated_at\" datetime, foreign key(\"company_id\") references \"companies\"(\"id\") on delete restrict, foreign key(\"user_id\") references \"users\"(\"id\"))",
+            "columns": [
+                {
+                    "cid": 0,
+                    "name": "id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 1
+                },
+                {
+                    "cid": 1,
+                    "name": "company_id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 2,
+                    "name": "user_id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 3,
+                    "name": "request_id",
+                    "type": "varchar",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 4,
+                    "name": "action",
+                    "type": "varchar",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 5,
+                    "name": "payload_hash",
+                    "type": "varchar",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 6,
+                    "name": "result",
+                    "type": "TEXT",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 7,
+                    "name": "created_at",
+                    "type": "datetime",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 8,
+                    "name": "updated_at",
+                    "type": "datetime",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                }
+            ],
+            "foreign_keys": [
+                {
+                    "id": 0,
+                    "seq": 0,
+                    "table": "users",
+                    "from": "user_id",
+                    "to": "id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "NO ACTION",
+                    "match": "NONE"
+                },
+                {
+                    "id": 1,
+                    "seq": 0,
+                    "table": "companies",
+                    "from": "company_id",
+                    "to": "id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                }
+            ],
+            "indexes": [
+                {
+                    "seq": 0,
+                    "name": "operation_receipts_company_id_action_request_id_unique",
+                    "unique": 1,
+                    "origin": "c",
+                    "partial": 0,
+                    "columns": [
+                        "company_id",
+                        "action",
+                        "request_id"
+                    ]
+                }
+            ],
+            "row_count": 20
+        },
+        {
+            "name": "order_items",
+            "sql": "CREATE TABLE \"order_items\" (\"id\" integer primary key autoincrement not null, \"company_id\" integer not null, \"order_id\" integer not null, \"product_id\" integer not null, \"quantity\" integer not null, \"unit_price_minor\" integer not null, \"total_minor\" integer not null, foreign key(\"company_id\") references \"companies\"(\"id\") on delete restrict, foreign key(\"order_id\", \"company_id\") references \"orders\"(\"id\", \"company_id\") on delete restrict, foreign key(\"product_id\", \"company_id\") references \"products\"(\"id\", \"company_id\") on delete restrict)",
+            "columns": [
+                {
+                    "cid": 0,
+                    "name": "id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 1
+                },
+                {
+                    "cid": 1,
+                    "name": "company_id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 2,
+                    "name": "order_id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 3,
+                    "name": "product_id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 4,
+                    "name": "quantity",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 5,
+                    "name": "unit_price_minor",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 6,
+                    "name": "total_minor",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                }
+            ],
+            "foreign_keys": [
+                {
+                    "id": 0,
+                    "seq": 0,
+                    "table": "products",
+                    "from": "product_id",
+                    "to": "id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                },
+                {
+                    "id": 0,
+                    "seq": 1,
+                    "table": "products",
+                    "from": "company_id",
+                    "to": "company_id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                },
+                {
+                    "id": 1,
+                    "seq": 0,
+                    "table": "orders",
+                    "from": "order_id",
+                    "to": "id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                },
+                {
+                    "id": 1,
+                    "seq": 1,
+                    "table": "orders",
+                    "from": "company_id",
+                    "to": "company_id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                },
+                {
+                    "id": 2,
+                    "seq": 0,
+                    "table": "companies",
+                    "from": "company_id",
+                    "to": "id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                }
+            ],
+            "indexes": [],
+            "row_count": 86
+        },
+        {
+            "name": "orders",
+            "sql": "CREATE TABLE \"orders\" (\"id\" integer primary key autoincrement not null, \"company_id\" integer not null, \"code\" varchar not null, \"customer_id\" integer not null, \"representative_id\" integer not null, \"trip_id\" integer, \"warehouse_id\" integer not null, \"status\" varchar not null default 'draft', \"total_minor\" integer not null default '0', \"paid_minor\" integer not null default '0', \"created_at\" datetime, \"updated_at\" datetime, \"payment_terms\" varchar not null default 'credit', \"due_date\" date, \"initial_paid_minor\" integer not null default '0', foreign key(\"company_id\") references \"companies\"(\"id\") on delete restrict, foreign key(\"representative_id\") references \"users\"(\"id\"), foreign key(\"customer_id\", \"company_id\") references \"customers\"(\"id\", \"company_id\") on delete restrict, foreign key(\"trip_id\", \"company_id\") references \"trips\"(\"id\", \"company_id\") on delete restrict, foreign key(\"warehouse_id\", \"company_id\") references \"warehouses\"(\"id\", \"company_id\") on delete restrict)",
+            "columns": [
+                {
+                    "cid": 0,
+                    "name": "id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 1
+                },
+                {
+                    "cid": 1,
+                    "name": "company_id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 2,
+                    "name": "code",
+                    "type": "varchar",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 3,
+                    "name": "customer_id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 4,
+                    "name": "representative_id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 5,
+                    "name": "trip_id",
+                    "type": "INTEGER",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 6,
+                    "name": "warehouse_id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 7,
+                    "name": "status",
+                    "type": "varchar",
+                    "notnull": 1,
+                    "dflt_value": "'draft'",
+                    "pk": 0
+                },
+                {
+                    "cid": 8,
+                    "name": "total_minor",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": "'0'",
+                    "pk": 0
+                },
+                {
+                    "cid": 9,
+                    "name": "paid_minor",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": "'0'",
+                    "pk": 0
+                },
+                {
+                    "cid": 10,
+                    "name": "created_at",
+                    "type": "datetime",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 11,
+                    "name": "updated_at",
+                    "type": "datetime",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 12,
+                    "name": "payment_terms",
+                    "type": "varchar",
+                    "notnull": 1,
+                    "dflt_value": "'credit'",
+                    "pk": 0
+                },
+                {
+                    "cid": 13,
+                    "name": "due_date",
+                    "type": "date",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 14,
+                    "name": "initial_paid_minor",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": "'0'",
+                    "pk": 0
+                }
+            ],
+            "foreign_keys": [
+                {
+                    "id": 0,
+                    "seq": 0,
+                    "table": "warehouses",
+                    "from": "warehouse_id",
+                    "to": "id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                },
+                {
+                    "id": 0,
+                    "seq": 1,
+                    "table": "warehouses",
+                    "from": "company_id",
+                    "to": "company_id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                },
+                {
+                    "id": 1,
+                    "seq": 0,
+                    "table": "trips",
+                    "from": "trip_id",
+                    "to": "id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                },
+                {
+                    "id": 1,
+                    "seq": 1,
+                    "table": "trips",
+                    "from": "company_id",
+                    "to": "company_id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                },
+                {
+                    "id": 2,
+                    "seq": 0,
+                    "table": "customers",
+                    "from": "customer_id",
+                    "to": "id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                },
+                {
+                    "id": 2,
+                    "seq": 1,
+                    "table": "customers",
+                    "from": "company_id",
+                    "to": "company_id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                },
+                {
+                    "id": 3,
+                    "seq": 0,
+                    "table": "users",
+                    "from": "representative_id",
+                    "to": "id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "NO ACTION",
+                    "match": "NONE"
+                },
+                {
+                    "id": 4,
+                    "seq": 0,
+                    "table": "companies",
+                    "from": "company_id",
+                    "to": "id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                }
+            ],
+            "indexes": [
+                {
+                    "seq": 0,
+                    "name": "orders_company_id_due_date_status_index",
+                    "unique": 0,
+                    "origin": "c",
+                    "partial": 0,
+                    "columns": [
+                        "company_id",
+                        "due_date",
+                        "status"
+                    ]
+                },
+                {
+                    "seq": 1,
+                    "name": "orders_id_company_id_unique",
+                    "unique": 1,
+                    "origin": "c",
+                    "partial": 0,
+                    "columns": [
+                        "id",
+                        "company_id"
+                    ]
+                },
+                {
+                    "seq": 2,
+                    "name": "orders_company_id_code_unique",
+                    "unique": 1,
+                    "origin": "c",
+                    "partial": 0,
+                    "columns": [
+                        "company_id",
+                        "code"
+                    ]
+                }
+            ],
+            "row_count": 85
+        },
+        {
+            "name": "password_reset_tokens",
+            "sql": "CREATE TABLE \"password_reset_tokens\" (\"email\" varchar not null, \"token\" varchar not null, \"created_at\" datetime, primary key (\"email\"))",
+            "columns": [
+                {
+                    "cid": 0,
+                    "name": "email",
+                    "type": "varchar",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 1
+                },
+                {
+                    "cid": 1,
+                    "name": "token",
+                    "type": "varchar",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 2,
+                    "name": "created_at",
+                    "type": "datetime",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                }
+            ],
+            "foreign_keys": [],
+            "indexes": [
+                {
+                    "seq": 0,
+                    "name": "sqlite_autoindex_password_reset_tokens_1",
+                    "unique": 1,
+                    "origin": "pk",
+                    "partial": 0,
+                    "columns": [
+                        "email"
+                    ]
+                }
+            ],
+            "row_count": 0
+        },
+        {
+            "name": "personal_access_tokens",
+            "sql": "CREATE TABLE \"personal_access_tokens\" (\"id\" integer primary key autoincrement not null, \"tokenable_type\" varchar not null, \"tokenable_id\" integer not null, \"name\" text not null, \"token\" varchar not null, \"abilities\" text, \"last_used_at\" datetime, \"expires_at\" datetime, \"created_at\" datetime, \"updated_at\" datetime)",
+            "columns": [
+                {
+                    "cid": 0,
+                    "name": "id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 1
+                },
+                {
+                    "cid": 1,
+                    "name": "tokenable_type",
+                    "type": "varchar",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 2,
+                    "name": "tokenable_id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 3,
+                    "name": "name",
+                    "type": "TEXT",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 4,
+                    "name": "token",
+                    "type": "varchar",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 5,
+                    "name": "abilities",
+                    "type": "TEXT",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 6,
+                    "name": "last_used_at",
+                    "type": "datetime",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 7,
+                    "name": "expires_at",
+                    "type": "datetime",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 8,
+                    "name": "created_at",
+                    "type": "datetime",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 9,
+                    "name": "updated_at",
+                    "type": "datetime",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                }
+            ],
+            "foreign_keys": [],
+            "indexes": [
+                {
+                    "seq": 0,
+                    "name": "personal_access_tokens_expires_at_index",
+                    "unique": 0,
+                    "origin": "c",
+                    "partial": 0,
+                    "columns": [
+                        "expires_at"
+                    ]
+                },
+                {
+                    "seq": 1,
+                    "name": "personal_access_tokens_token_unique",
+                    "unique": 1,
+                    "origin": "c",
+                    "partial": 0,
+                    "columns": [
+                        "token"
+                    ]
+                },
+                {
+                    "seq": 2,
+                    "name": "personal_access_tokens_tokenable_type_tokenable_id_index",
+                    "unique": 0,
+                    "origin": "c",
+                    "partial": 0,
+                    "columns": [
+                        "tokenable_type",
+                        "tokenable_id"
+                    ]
+                }
+            ],
+            "row_count": 0
+        },
+        {
+            "name": "products",
+            "sql": "CREATE TABLE \"products\" (\"id\" integer primary key autoincrement not null, \"company_id\" integer not null, \"sku\" varchar not null, \"name\" varchar not null, \"unit\" varchar not null default 'قطعة', \"price_minor\" integer not null, \"reorder_level\" integer not null default '20', \"is_active\" tinyint(1) not null default '1', \"created_at\" datetime, \"updated_at\" datetime, foreign key(\"company_id\") references \"companies\"(\"id\") on delete restrict)",
+            "columns": [
+                {
+                    "cid": 0,
+                    "name": "id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 1
+                },
+                {
+                    "cid": 1,
+                    "name": "company_id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 2,
+                    "name": "sku",
+                    "type": "varchar",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 3,
+                    "name": "name",
+                    "type": "varchar",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 4,
+                    "name": "unit",
+                    "type": "varchar",
+                    "notnull": 1,
+                    "dflt_value": "'قطعة'",
+                    "pk": 0
+                },
+                {
+                    "cid": 5,
+                    "name": "price_minor",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 6,
+                    "name": "reorder_level",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": "'20'",
+                    "pk": 0
+                },
+                {
+                    "cid": 7,
+                    "name": "is_active",
+                    "type": "tinyint(1)",
+                    "notnull": 1,
+                    "dflt_value": "'1'",
+                    "pk": 0
+                },
+                {
+                    "cid": 8,
+                    "name": "created_at",
+                    "type": "datetime",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 9,
+                    "name": "updated_at",
+                    "type": "datetime",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                }
+            ],
+            "foreign_keys": [
+                {
+                    "id": 0,
+                    "seq": 0,
+                    "table": "companies",
+                    "from": "company_id",
+                    "to": "id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                }
+            ],
+            "indexes": [
+                {
+                    "seq": 0,
+                    "name": "products_id_company_id_unique",
+                    "unique": 1,
+                    "origin": "c",
+                    "partial": 0,
+                    "columns": [
+                        "id",
+                        "company_id"
+                    ]
+                },
+                {
+                    "seq": 1,
+                    "name": "products_company_id_sku_unique",
+                    "unique": 1,
+                    "origin": "c",
+                    "partial": 0,
+                    "columns": [
+                        "company_id",
+                        "sku"
+                    ]
+                }
+            ],
+            "row_count": 9
+        },
+        {
+            "name": "representative_areas",
+            "sql": "CREATE TABLE \"representative_areas\" (\"id\" integer primary key autoincrement not null, \"company_id\" integer not null, \"user_id\" integer not null, \"area_id\" integer not null, foreign key(\"company_id\", \"user_id\") references \"company_user\"(\"company_id\", \"user_id\") on delete restrict, foreign key(\"area_id\", \"company_id\") references \"areas\"(\"id\", \"company_id\") on delete restrict)",
+            "columns": [
+                {
+                    "cid": 0,
+                    "name": "id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 1
+                },
+                {
+                    "cid": 1,
+                    "name": "company_id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 2,
+                    "name": "user_id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 3,
+                    "name": "area_id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                }
+            ],
+            "foreign_keys": [
+                {
+                    "id": 0,
+                    "seq": 0,
+                    "table": "areas",
+                    "from": "area_id",
+                    "to": "id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                },
+                {
+                    "id": 0,
+                    "seq": 1,
+                    "table": "areas",
+                    "from": "company_id",
+                    "to": "company_id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                },
+                {
+                    "id": 1,
+                    "seq": 0,
+                    "table": "company_user",
+                    "from": "company_id",
+                    "to": "company_id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                },
+                {
+                    "id": 1,
+                    "seq": 1,
+                    "table": "company_user",
+                    "from": "user_id",
+                    "to": "user_id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                }
+            ],
+            "indexes": [
+                {
+                    "seq": 0,
+                    "name": "representative_areas_company_id_user_id_area_id_unique",
+                    "unique": 1,
+                    "origin": "c",
+                    "partial": 0,
+                    "columns": [
+                        "company_id",
+                        "user_id",
+                        "area_id"
+                    ]
+                }
+            ],
+            "row_count": 0
+        },
+        {
+            "name": "representative_vehicle_assignments",
+            "sql": "CREATE TABLE \"representative_vehicle_assignments\" (\"id\" integer primary key autoincrement not null, \"company_id\" integer not null, \"representative_id\" integer not null, \"vehicle_id\" integer not null, \"active_representative_id\" integer, \"active_vehicle_id\" integer, \"assigned_by\" integer not null, \"returned_by\" integer, \"assigned_at\" datetime not null, \"returned_at\" datetime, \"assignment_note\" text not null, \"return_note\" text, foreign key(\"company_id\") references \"companies\"(\"id\") on delete restrict, foreign key(\"assigned_by\") references \"users\"(\"id\") on delete restrict, foreign key(\"returned_by\") references \"users\"(\"id\") on delete restrict, foreign key(\"company_id\", \"representative_id\") references \"company_user\"(\"company_id\", \"user_id\") on delete restrict, foreign key(\"vehicle_id\", \"company_id\") references \"vehicles\"(\"id\", \"company_id\") on delete restrict)",
+            "columns": [
+                {
+                    "cid": 0,
+                    "name": "id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 1
+                },
+                {
+                    "cid": 1,
+                    "name": "company_id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 2,
+                    "name": "representative_id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 3,
+                    "name": "vehicle_id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 4,
+                    "name": "active_representative_id",
+                    "type": "INTEGER",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 5,
+                    "name": "active_vehicle_id",
+                    "type": "INTEGER",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 6,
+                    "name": "assigned_by",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 7,
+                    "name": "returned_by",
+                    "type": "INTEGER",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 8,
+                    "name": "assigned_at",
+                    "type": "datetime",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 9,
+                    "name": "returned_at",
+                    "type": "datetime",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 10,
+                    "name": "assignment_note",
+                    "type": "TEXT",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 11,
+                    "name": "return_note",
+                    "type": "TEXT",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                }
+            ],
+            "foreign_keys": [
+                {
+                    "id": 0,
+                    "seq": 0,
+                    "table": "vehicles",
+                    "from": "vehicle_id",
+                    "to": "id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                },
+                {
+                    "id": 0,
+                    "seq": 1,
+                    "table": "vehicles",
+                    "from": "company_id",
+                    "to": "company_id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                },
+                {
+                    "id": 1,
+                    "seq": 0,
+                    "table": "company_user",
+                    "from": "company_id",
+                    "to": "company_id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                },
+                {
+                    "id": 1,
+                    "seq": 1,
+                    "table": "company_user",
+                    "from": "representative_id",
+                    "to": "user_id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                },
+                {
+                    "id": 2,
+                    "seq": 0,
+                    "table": "users",
+                    "from": "returned_by",
+                    "to": "id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                },
+                {
+                    "id": 3,
+                    "seq": 0,
+                    "table": "users",
+                    "from": "assigned_by",
+                    "to": "id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                },
+                {
+                    "id": 4,
+                    "seq": 0,
+                    "table": "companies",
+                    "from": "company_id",
+                    "to": "id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                }
+            ],
+            "indexes": [
+                {
+                    "seq": 0,
+                    "name": "rep_vehicle_active_vehicle_unique",
+                    "unique": 1,
+                    "origin": "c",
+                    "partial": 0,
+                    "columns": [
+                        "company_id",
+                        "active_vehicle_id"
+                    ]
+                },
+                {
+                    "seq": 1,
+                    "name": "rep_vehicle_active_rep_unique",
+                    "unique": 1,
+                    "origin": "c",
+                    "partial": 0,
+                    "columns": [
+                        "company_id",
+                        "active_representative_id"
+                    ]
+                }
+            ],
+            "row_count": 0
+        },
+        {
+            "name": "sessions",
+            "sql": "CREATE TABLE \"sessions\" (\"id\" varchar not null, \"user_id\" integer, \"ip_address\" varchar, \"user_agent\" text, \"payload\" text not null, \"last_activity\" integer not null, primary key (\"id\"))",
+            "columns": [
+                {
+                    "cid": 0,
+                    "name": "id",
+                    "type": "varchar",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 1
+                },
+                {
+                    "cid": 1,
+                    "name": "user_id",
+                    "type": "INTEGER",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 2,
+                    "name": "ip_address",
+                    "type": "varchar",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 3,
+                    "name": "user_agent",
+                    "type": "TEXT",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 4,
+                    "name": "payload",
+                    "type": "TEXT",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 5,
+                    "name": "last_activity",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                }
+            ],
+            "foreign_keys": [],
+            "indexes": [
+                {
+                    "seq": 0,
+                    "name": "sessions_last_activity_index",
+                    "unique": 0,
+                    "origin": "c",
+                    "partial": 0,
+                    "columns": [
+                        "last_activity"
+                    ]
+                },
+                {
+                    "seq": 1,
+                    "name": "sessions_user_id_index",
+                    "unique": 0,
+                    "origin": "c",
+                    "partial": 0,
+                    "columns": [
+                        "user_id"
+                    ]
+                },
+                {
+                    "seq": 2,
+                    "name": "sqlite_autoindex_sessions_1",
+                    "unique": 1,
+                    "origin": "pk",
+                    "partial": 0,
+                    "columns": [
+                        "id"
+                    ]
+                }
+            ],
+            "row_count": 3
+        },
+        {
+            "name": "stock_balances",
+            "sql": "CREATE TABLE \"stock_balances\" (\"id\" integer primary key autoincrement not null, \"company_id\" integer not null, \"warehouse_id\" integer not null, \"product_id\" integer not null, \"quantity\" integer not null default '0', \"created_at\" datetime, \"updated_at\" datetime, foreign key(\"company_id\") references \"companies\"(\"id\") on delete restrict, foreign key(\"warehouse_id\", \"company_id\") references \"warehouses\"(\"id\", \"company_id\") on delete restrict, foreign key(\"product_id\", \"company_id\") references \"products\"(\"id\", \"company_id\") on delete restrict)",
+            "columns": [
+                {
+                    "cid": 0,
+                    "name": "id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 1
+                },
+                {
+                    "cid": 1,
+                    "name": "company_id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 2,
+                    "name": "warehouse_id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 3,
+                    "name": "product_id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 4,
+                    "name": "quantity",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": "'0'",
+                    "pk": 0
+                },
+                {
+                    "cid": 5,
+                    "name": "created_at",
+                    "type": "datetime",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 6,
+                    "name": "updated_at",
+                    "type": "datetime",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                }
+            ],
+            "foreign_keys": [
+                {
+                    "id": 0,
+                    "seq": 0,
+                    "table": "products",
+                    "from": "product_id",
+                    "to": "id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                },
+                {
+                    "id": 0,
+                    "seq": 1,
+                    "table": "products",
+                    "from": "company_id",
+                    "to": "company_id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                },
+                {
+                    "id": 1,
+                    "seq": 0,
+                    "table": "warehouses",
+                    "from": "warehouse_id",
+                    "to": "id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                },
+                {
+                    "id": 1,
+                    "seq": 1,
+                    "table": "warehouses",
+                    "from": "company_id",
+                    "to": "company_id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                },
+                {
+                    "id": 2,
+                    "seq": 0,
+                    "table": "companies",
+                    "from": "company_id",
+                    "to": "id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                }
+            ],
+            "indexes": [
+                {
+                    "seq": 0,
+                    "name": "stock_balances_company_id_warehouse_id_product_id_unique",
+                    "unique": 1,
+                    "origin": "c",
+                    "partial": 0,
+                    "columns": [
+                        "company_id",
+                        "warehouse_id",
+                        "product_id"
+                    ]
+                }
+            ],
+            "row_count": 57
+        },
+        {
+            "name": "stock_movements",
+            "sql": "CREATE TABLE \"stock_movements\" (\"id\" integer primary key autoincrement not null, \"company_id\" integer not null, \"warehouse_id\" integer not null, \"product_id\" integer not null, \"quantity\" integer not null, \"reason\" varchar not null, \"reference\" varchar not null, \"actor_id\" integer, \"created_at\" datetime not null, foreign key(\"company_id\") references \"companies\"(\"id\") on delete restrict, foreign key(\"actor_id\") references \"users\"(\"id\"), foreign key(\"warehouse_id\", \"company_id\") references \"warehouses\"(\"id\", \"company_id\") on delete restrict, foreign key(\"product_id\", \"company_id\") references \"products\"(\"id\", \"company_id\") on delete restrict)",
+            "columns": [
+                {
+                    "cid": 0,
+                    "name": "id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 1
+                },
+                {
+                    "cid": 1,
+                    "name": "company_id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 2,
+                    "name": "warehouse_id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 3,
+                    "name": "product_id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 4,
+                    "name": "quantity",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 5,
+                    "name": "reason",
+                    "type": "varchar",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 6,
+                    "name": "reference",
+                    "type": "varchar",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 7,
+                    "name": "actor_id",
+                    "type": "INTEGER",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 8,
+                    "name": "created_at",
+                    "type": "datetime",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                }
+            ],
+            "foreign_keys": [
+                {
+                    "id": 0,
+                    "seq": 0,
+                    "table": "products",
+                    "from": "product_id",
+                    "to": "id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                },
+                {
+                    "id": 0,
+                    "seq": 1,
+                    "table": "products",
+                    "from": "company_id",
+                    "to": "company_id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                },
+                {
+                    "id": 1,
+                    "seq": 0,
+                    "table": "warehouses",
+                    "from": "warehouse_id",
+                    "to": "id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                },
+                {
+                    "id": 1,
+                    "seq": 1,
+                    "table": "warehouses",
+                    "from": "company_id",
+                    "to": "company_id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                },
+                {
+                    "id": 2,
+                    "seq": 0,
+                    "table": "users",
+                    "from": "actor_id",
+                    "to": "id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "NO ACTION",
+                    "match": "NONE"
+                },
+                {
+                    "id": 3,
+                    "seq": 0,
+                    "table": "companies",
+                    "from": "company_id",
+                    "to": "id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                }
+            ],
+            "indexes": [
+                {
+                    "seq": 0,
+                    "name": "stock_movements_company_id_warehouse_id_created_at_index",
+                    "unique": 0,
+                    "origin": "c",
+                    "partial": 0,
+                    "columns": [
+                        "company_id",
+                        "warehouse_id",
+                        "created_at"
+                    ]
+                }
+            ],
+            "row_count": 143
+        },
+        {
+            "name": "trips",
+            "sql": "CREATE TABLE \"trips\" (\"id\" integer primary key autoincrement not null, \"company_id\" integer not null, \"code\" varchar not null, \"representative_id\" integer not null, \"vehicle_id\" integer not null, \"warehouse_id\" integer not null, \"scheduled_for\" date not null, \"status\" varchar not null default ('planned'), \"started_at\" datetime, \"closed_at\" datetime, \"active_representative_id\" integer, \"active_vehicle_id\" integer, \"created_at\" datetime, \"updated_at\" datetime, \"driver_id\" integer, \"plan_version\" integer not null default ('1'), \"planning_notes\" text, \"cancelled_at\" datetime, \"cancelled_by\" integer, \"cancellation_reason\" varchar, \"weekly_plan_id\" integer, \"weekly_plan_version\" integer, \"route_snapshot\" text, foreign key(\"cancelled_by\") references users(\"id\") on delete restrict on update no action, foreign key(\"warehouse_id\", \"company_id\") references warehouses(\"id\", \"company_id\") on delete restrict on update no action, foreign key(\"vehicle_id\", \"company_id\") references vehicles(\"id\", \"company_id\") on delete restrict on update no action, foreign key(\"company_id\", \"representative_id\") references company_user(\"company_id\", \"user_id\") on delete restrict on update no action, foreign key(\"company_id\") references companies(\"id\") on delete restrict on update no action, foreign key(\"driver_id\", \"company_id\") references drivers(\"id\", \"company_id\") on delete restrict on update no action, foreign key(\"weekly_plan_id\", \"company_id\") references \"weekly_plans\"(\"id\", \"company_id\") on delete restrict)",
+            "columns": [
+                {
+                    "cid": 0,
+                    "name": "id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 1
+                },
+                {
+                    "cid": 1,
+                    "name": "company_id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 2,
+                    "name": "code",
+                    "type": "varchar",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 3,
+                    "name": "representative_id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 4,
+                    "name": "vehicle_id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 5,
+                    "name": "warehouse_id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 6,
+                    "name": "scheduled_for",
+                    "type": "date",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 7,
+                    "name": "status",
+                    "type": "varchar",
+                    "notnull": 1,
+                    "dflt_value": "'planned'",
+                    "pk": 0
+                },
+                {
+                    "cid": 8,
+                    "name": "started_at",
+                    "type": "datetime",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 9,
+                    "name": "closed_at",
+                    "type": "datetime",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 10,
+                    "name": "active_representative_id",
+                    "type": "INTEGER",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 11,
+                    "name": "active_vehicle_id",
+                    "type": "INTEGER",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 12,
+                    "name": "created_at",
+                    "type": "datetime",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 13,
+                    "name": "updated_at",
+                    "type": "datetime",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 14,
+                    "name": "driver_id",
+                    "type": "INTEGER",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 15,
+                    "name": "plan_version",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": "'1'",
+                    "pk": 0
+                },
+                {
+                    "cid": 16,
+                    "name": "planning_notes",
+                    "type": "TEXT",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 17,
+                    "name": "cancelled_at",
+                    "type": "datetime",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 18,
+                    "name": "cancelled_by",
+                    "type": "INTEGER",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 19,
+                    "name": "cancellation_reason",
+                    "type": "varchar",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 20,
+                    "name": "weekly_plan_id",
+                    "type": "INTEGER",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 21,
+                    "name": "weekly_plan_version",
+                    "type": "INTEGER",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 22,
+                    "name": "route_snapshot",
+                    "type": "TEXT",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                }
+            ],
+            "foreign_keys": [
+                {
+                    "id": 0,
+                    "seq": 0,
+                    "table": "weekly_plans",
+                    "from": "weekly_plan_id",
+                    "to": "id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                },
+                {
+                    "id": 0,
+                    "seq": 1,
+                    "table": "weekly_plans",
+                    "from": "company_id",
+                    "to": "company_id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                },
+                {
+                    "id": 1,
+                    "seq": 0,
+                    "table": "drivers",
+                    "from": "driver_id",
+                    "to": "id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                },
+                {
+                    "id": 1,
+                    "seq": 1,
+                    "table": "drivers",
+                    "from": "company_id",
+                    "to": "company_id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                },
+                {
+                    "id": 2,
+                    "seq": 0,
+                    "table": "companies",
+                    "from": "company_id",
+                    "to": "id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                },
+                {
+                    "id": 3,
+                    "seq": 0,
+                    "table": "company_user",
+                    "from": "company_id",
+                    "to": "company_id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                },
+                {
+                    "id": 3,
+                    "seq": 1,
+                    "table": "company_user",
+                    "from": "representative_id",
+                    "to": "user_id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                },
+                {
+                    "id": 4,
+                    "seq": 0,
+                    "table": "vehicles",
+                    "from": "vehicle_id",
+                    "to": "id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                },
+                {
+                    "id": 4,
+                    "seq": 1,
+                    "table": "vehicles",
+                    "from": "company_id",
+                    "to": "company_id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                },
+                {
+                    "id": 5,
+                    "seq": 0,
+                    "table": "warehouses",
+                    "from": "warehouse_id",
+                    "to": "id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                },
+                {
+                    "id": 5,
+                    "seq": 1,
+                    "table": "warehouses",
+                    "from": "company_id",
+                    "to": "company_id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                },
+                {
+                    "id": 6,
+                    "seq": 0,
+                    "table": "users",
+                    "from": "cancelled_by",
+                    "to": "id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                }
+            ],
+            "indexes": [
+                {
+                    "seq": 0,
+                    "name": "trips_company_id_weekly_plan_id_scheduled_for_unique",
+                    "unique": 1,
+                    "origin": "c",
+                    "partial": 0,
+                    "columns": [
+                        "company_id",
+                        "weekly_plan_id",
+                        "scheduled_for"
+                    ]
+                },
+                {
+                    "seq": 1,
+                    "name": "trips_id_company_id_unique",
+                    "unique": 1,
+                    "origin": "c",
+                    "partial": 0,
+                    "columns": [
+                        "id",
+                        "company_id"
+                    ]
+                },
+                {
+                    "seq": 2,
+                    "name": "trips_company_id_scheduled_for_status_index",
+                    "unique": 0,
+                    "origin": "c",
+                    "partial": 0,
+                    "columns": [
+                        "company_id",
+                        "scheduled_for",
+                        "status"
+                    ]
+                },
+                {
+                    "seq": 3,
+                    "name": "trips_company_id_code_unique",
+                    "unique": 1,
+                    "origin": "c",
+                    "partial": 0,
+                    "columns": [
+                        "company_id",
+                        "code"
+                    ]
+                },
+                {
+                    "seq": 4,
+                    "name": "trips_company_id_active_vehicle_id_unique",
+                    "unique": 1,
+                    "origin": "c",
+                    "partial": 0,
+                    "columns": [
+                        "company_id",
+                        "active_vehicle_id"
+                    ]
+                },
+                {
+                    "seq": 5,
+                    "name": "trips_company_id_active_representative_id_unique",
+                    "unique": 1,
+                    "origin": "c",
+                    "partial": 0,
+                    "columns": [
+                        "company_id",
+                        "active_representative_id"
+                    ]
+                }
+            ],
+            "row_count": 14
+        },
+        {
+            "name": "users",
+            "sql": "CREATE TABLE \"users\" (\"id\" integer primary key autoincrement not null, \"name\" varchar not null, \"email\" varchar, \"email_verified_at\" datetime, \"password\" varchar not null, \"remember_token\" varchar, \"created_at\" datetime, \"updated_at\" datetime, \"username\" varchar)",
+            "columns": [
+                {
+                    "cid": 0,
+                    "name": "id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 1
+                },
+                {
+                    "cid": 1,
+                    "name": "name",
+                    "type": "varchar",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 2,
+                    "name": "email",
+                    "type": "varchar",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 3,
+                    "name": "email_verified_at",
+                    "type": "datetime",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 4,
+                    "name": "password",
+                    "type": "varchar",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 5,
+                    "name": "remember_token",
+                    "type": "varchar",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 6,
+                    "name": "created_at",
+                    "type": "datetime",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 7,
+                    "name": "updated_at",
+                    "type": "datetime",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 8,
+                    "name": "username",
+                    "type": "varchar",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                }
+            ],
+            "foreign_keys": [],
+            "indexes": [
+                {
+                    "seq": 0,
+                    "name": "users_username_unique",
+                    "unique": 1,
+                    "origin": "c",
+                    "partial": 0,
+                    "columns": [
+                        "username"
+                    ]
+                },
+                {
+                    "seq": 1,
+                    "name": "users_email_unique",
+                    "unique": 1,
+                    "origin": "c",
+                    "partial": 0,
+                    "columns": [
+                        "email"
+                    ]
+                }
+            ],
+            "row_count": 15
+        },
+        {
+            "name": "vehicle_assignments",
+            "sql": "CREATE TABLE \"vehicle_assignments\" (\"id\" integer primary key autoincrement not null, \"company_id\" integer not null, \"vehicle_id\" integer not null, \"driver_id\" integer not null, \"active_vehicle_id\" integer, \"active_driver_id\" integer, \"assigned_by\" integer not null, \"returned_by\" integer, \"assigned_at\" datetime not null, \"returned_at\" datetime, \"handover_note\" varchar not null, \"return_note\" varchar, foreign key(\"company_id\") references \"companies\"(\"id\") on delete restrict, foreign key(\"assigned_by\") references \"users\"(\"id\") on delete restrict, foreign key(\"returned_by\") references \"users\"(\"id\") on delete restrict, foreign key(\"vehicle_id\", \"company_id\") references \"vehicles\"(\"id\", \"company_id\") on delete restrict, foreign key(\"driver_id\", \"company_id\") references \"drivers\"(\"id\", \"company_id\") on delete restrict)",
+            "columns": [
+                {
+                    "cid": 0,
+                    "name": "id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 1
+                },
+                {
+                    "cid": 1,
+                    "name": "company_id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 2,
+                    "name": "vehicle_id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 3,
+                    "name": "driver_id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 4,
+                    "name": "active_vehicle_id",
+                    "type": "INTEGER",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 5,
+                    "name": "active_driver_id",
+                    "type": "INTEGER",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 6,
+                    "name": "assigned_by",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 7,
+                    "name": "returned_by",
+                    "type": "INTEGER",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 8,
+                    "name": "assigned_at",
+                    "type": "datetime",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 9,
+                    "name": "returned_at",
+                    "type": "datetime",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 10,
+                    "name": "handover_note",
+                    "type": "varchar",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 11,
+                    "name": "return_note",
+                    "type": "varchar",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                }
+            ],
+            "foreign_keys": [
+                {
+                    "id": 0,
+                    "seq": 0,
+                    "table": "drivers",
+                    "from": "driver_id",
+                    "to": "id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                },
+                {
+                    "id": 0,
+                    "seq": 1,
+                    "table": "drivers",
+                    "from": "company_id",
+                    "to": "company_id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                },
+                {
+                    "id": 1,
+                    "seq": 0,
+                    "table": "vehicles",
+                    "from": "vehicle_id",
+                    "to": "id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                },
+                {
+                    "id": 1,
+                    "seq": 1,
+                    "table": "vehicles",
+                    "from": "company_id",
+                    "to": "company_id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                },
+                {
+                    "id": 2,
+                    "seq": 0,
+                    "table": "users",
+                    "from": "returned_by",
+                    "to": "id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                },
+                {
+                    "id": 3,
+                    "seq": 0,
+                    "table": "users",
+                    "from": "assigned_by",
+                    "to": "id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                },
+                {
+                    "id": 4,
+                    "seq": 0,
+                    "table": "companies",
+                    "from": "company_id",
+                    "to": "id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                }
+            ],
+            "indexes": [
+                {
+                    "seq": 0,
+                    "name": "vehicle_assignments_company_id_active_driver_id_unique",
+                    "unique": 1,
+                    "origin": "c",
+                    "partial": 0,
+                    "columns": [
+                        "company_id",
+                        "active_driver_id"
+                    ]
+                },
+                {
+                    "seq": 1,
+                    "name": "vehicle_assignments_company_id_active_vehicle_id_unique",
+                    "unique": 1,
+                    "origin": "c",
+                    "partial": 0,
+                    "columns": [
+                        "company_id",
+                        "active_vehicle_id"
+                    ]
+                }
+            ],
+            "row_count": 1
+        },
+        {
+            "name": "vehicles",
+            "sql": "CREATE TABLE \"vehicles\" (\"id\" integer primary key autoincrement not null, \"company_id\" integer not null, \"plate\" varchar not null, \"name\" varchar not null, \"status\" varchar not null default 'available', \"created_at\" datetime, \"updated_at\" datetime, \"capacity_units\" integer not null default '500', \"vehicle_type\" varchar not null default 'unspecified', \"make\" varchar, \"model\" varchar, \"model_year\" integer, \"vin\" varchar, \"ownership\" varchar not null default 'owned', \"payload_kg\" integer, \"volume_m3\" numeric, \"odometer_km\" integer, \"registration_expires_on\" date, \"insurance_expires_on\" date, \"notes\" varchar, foreign key(\"company_id\") references \"companies\"(\"id\") on delete restrict)",
+            "columns": [
+                {
+                    "cid": 0,
+                    "name": "id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 1
+                },
+                {
+                    "cid": 1,
+                    "name": "company_id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 2,
+                    "name": "plate",
+                    "type": "varchar",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 3,
+                    "name": "name",
+                    "type": "varchar",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 4,
+                    "name": "status",
+                    "type": "varchar",
+                    "notnull": 1,
+                    "dflt_value": "'available'",
+                    "pk": 0
+                },
+                {
+                    "cid": 5,
+                    "name": "created_at",
+                    "type": "datetime",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 6,
+                    "name": "updated_at",
+                    "type": "datetime",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 7,
+                    "name": "capacity_units",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": "'500'",
+                    "pk": 0
+                },
+                {
+                    "cid": 8,
+                    "name": "vehicle_type",
+                    "type": "varchar",
+                    "notnull": 1,
+                    "dflt_value": "'unspecified'",
+                    "pk": 0
+                },
+                {
+                    "cid": 9,
+                    "name": "make",
+                    "type": "varchar",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 10,
+                    "name": "model",
+                    "type": "varchar",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 11,
+                    "name": "model_year",
+                    "type": "INTEGER",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 12,
+                    "name": "vin",
+                    "type": "varchar",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 13,
+                    "name": "ownership",
+                    "type": "varchar",
+                    "notnull": 1,
+                    "dflt_value": "'owned'",
+                    "pk": 0
+                },
+                {
+                    "cid": 14,
+                    "name": "payload_kg",
+                    "type": "INTEGER",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 15,
+                    "name": "volume_m3",
+                    "type": "numeric",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 16,
+                    "name": "odometer_km",
+                    "type": "INTEGER",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 17,
+                    "name": "registration_expires_on",
+                    "type": "date",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 18,
+                    "name": "insurance_expires_on",
+                    "type": "date",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 19,
+                    "name": "notes",
+                    "type": "varchar",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                }
+            ],
+            "foreign_keys": [
+                {
+                    "id": 0,
+                    "seq": 0,
+                    "table": "companies",
+                    "from": "company_id",
+                    "to": "id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                }
+            ],
+            "indexes": [
+                {
+                    "seq": 0,
+                    "name": "vehicles_id_company_id_unique",
+                    "unique": 1,
+                    "origin": "c",
+                    "partial": 0,
+                    "columns": [
+                        "id",
+                        "company_id"
+                    ]
+                },
+                {
+                    "seq": 1,
+                    "name": "vehicles_company_id_plate_unique",
+                    "unique": 1,
+                    "origin": "c",
+                    "partial": 0,
+                    "columns": [
+                        "company_id",
+                        "plate"
+                    ]
+                }
+            ],
+            "row_count": 13
+        },
+        {
+            "name": "visits",
+            "sql": "CREATE TABLE \"visits\" (\"id\" integer primary key autoincrement not null, \"company_id\" integer not null, \"customer_id\" integer not null, \"representative_id\" integer not null, \"scheduled_for\" date not null, \"status\" varchar not null default ('planned'), \"checked_in_at\" datetime, \"finished_at\" datetime, \"checkin_latitude\" numeric, \"checkin_longitude\" numeric, \"accuracy_m\" numeric, \"distance_m\" numeric, \"location_captured_at\" datetime, \"location_verified\" tinyint(1) not null default ('0'), \"outcome_note\" varchar, \"created_at\" datetime, \"updated_at\" datetime, \"trip_id\" integer, \"sequence\" integer not null default '1', \"window_start\" time, \"window_end\" time, \"service_minutes\" integer not null default '10', \"reason_code\" varchar, foreign key(\"company_id\", \"representative_id\") references company_user(\"company_id\", \"user_id\") on delete restrict on update no action, foreign key(\"customer_id\", \"company_id\") references customers(\"id\", \"company_id\") on delete restrict on update no action, foreign key(\"company_id\") references companies(\"id\") on delete restrict on update no action, foreign key(\"trip_id\", \"company_id\") references \"trips\"(\"id\", \"company_id\") on delete restrict)",
+            "columns": [
+                {
+                    "cid": 0,
+                    "name": "id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 1
+                },
+                {
+                    "cid": 1,
+                    "name": "company_id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 2,
+                    "name": "customer_id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 3,
+                    "name": "representative_id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 4,
+                    "name": "scheduled_for",
+                    "type": "date",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 5,
+                    "name": "status",
+                    "type": "varchar",
+                    "notnull": 1,
+                    "dflt_value": "'planned'",
+                    "pk": 0
+                },
+                {
+                    "cid": 6,
+                    "name": "checked_in_at",
+                    "type": "datetime",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 7,
+                    "name": "finished_at",
+                    "type": "datetime",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 8,
+                    "name": "checkin_latitude",
+                    "type": "numeric",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 9,
+                    "name": "checkin_longitude",
+                    "type": "numeric",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 10,
+                    "name": "accuracy_m",
+                    "type": "numeric",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 11,
+                    "name": "distance_m",
+                    "type": "numeric",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 12,
+                    "name": "location_captured_at",
+                    "type": "datetime",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 13,
+                    "name": "location_verified",
+                    "type": "tinyint(1)",
+                    "notnull": 1,
+                    "dflt_value": "'0'",
+                    "pk": 0
+                },
+                {
+                    "cid": 14,
+                    "name": "outcome_note",
+                    "type": "varchar",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 15,
+                    "name": "created_at",
+                    "type": "datetime",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 16,
+                    "name": "updated_at",
+                    "type": "datetime",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 17,
+                    "name": "trip_id",
+                    "type": "INTEGER",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 18,
+                    "name": "sequence",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": "'1'",
+                    "pk": 0
+                },
+                {
+                    "cid": 19,
+                    "name": "window_start",
+                    "type": "time",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 20,
+                    "name": "window_end",
+                    "type": "time",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 21,
+                    "name": "service_minutes",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": "'10'",
+                    "pk": 0
+                },
+                {
+                    "cid": 22,
+                    "name": "reason_code",
+                    "type": "varchar",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                }
+            ],
+            "foreign_keys": [
+                {
+                    "id": 0,
+                    "seq": 0,
+                    "table": "trips",
+                    "from": "trip_id",
+                    "to": "id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                },
+                {
+                    "id": 0,
+                    "seq": 1,
+                    "table": "trips",
+                    "from": "company_id",
+                    "to": "company_id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                },
+                {
+                    "id": 1,
+                    "seq": 0,
+                    "table": "companies",
+                    "from": "company_id",
+                    "to": "id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                },
+                {
+                    "id": 2,
+                    "seq": 0,
+                    "table": "customers",
+                    "from": "customer_id",
+                    "to": "id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                },
+                {
+                    "id": 2,
+                    "seq": 1,
+                    "table": "customers",
+                    "from": "company_id",
+                    "to": "company_id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                },
+                {
+                    "id": 3,
+                    "seq": 0,
+                    "table": "company_user",
+                    "from": "company_id",
+                    "to": "company_id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                },
+                {
+                    "id": 3,
+                    "seq": 1,
+                    "table": "company_user",
+                    "from": "representative_id",
+                    "to": "user_id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                }
+            ],
+            "indexes": [
+                {
+                    "seq": 0,
+                    "name": "visits_id_company_id_unique",
+                    "unique": 1,
+                    "origin": "c",
+                    "partial": 0,
+                    "columns": [
+                        "id",
+                        "company_id"
+                    ]
+                },
+                {
+                    "seq": 1,
+                    "name": "visits_company_id_scheduled_for_status_index",
+                    "unique": 0,
+                    "origin": "c",
+                    "partial": 0,
+                    "columns": [
+                        "company_id",
+                        "scheduled_for",
+                        "status"
+                    ]
+                },
+                {
+                    "seq": 2,
+                    "name": "visits_company_id_representative_id_scheduled_for_index",
+                    "unique": 0,
+                    "origin": "c",
+                    "partial": 0,
+                    "columns": [
+                        "company_id",
+                        "representative_id",
+                        "scheduled_for"
+                    ]
+                }
+            ],
+            "row_count": 54
+        },
+        {
+            "name": "warehouses",
+            "sql": "CREATE TABLE \"warehouses\" (\"id\" integer primary key autoincrement not null, \"company_id\" integer not null, \"name\" varchar not null, \"type\" varchar not null default 'warehouse', \"vehicle_id\" integer, \"created_at\" datetime, \"updated_at\" datetime, foreign key(\"company_id\") references \"companies\"(\"id\") on delete restrict, foreign key(\"vehicle_id\", \"company_id\") references \"vehicles\"(\"id\", \"company_id\") on delete restrict)",
+            "columns": [
+                {
+                    "cid": 0,
+                    "name": "id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 1
+                },
+                {
+                    "cid": 1,
+                    "name": "company_id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 2,
+                    "name": "name",
+                    "type": "varchar",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 3,
+                    "name": "type",
+                    "type": "varchar",
+                    "notnull": 1,
+                    "dflt_value": "'warehouse'",
+                    "pk": 0
+                },
+                {
+                    "cid": 4,
+                    "name": "vehicle_id",
+                    "type": "INTEGER",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 5,
+                    "name": "created_at",
+                    "type": "datetime",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 6,
+                    "name": "updated_at",
+                    "type": "datetime",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                }
+            ],
+            "foreign_keys": [
+                {
+                    "id": 0,
+                    "seq": 0,
+                    "table": "vehicles",
+                    "from": "vehicle_id",
+                    "to": "id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                },
+                {
+                    "id": 0,
+                    "seq": 1,
+                    "table": "vehicles",
+                    "from": "company_id",
+                    "to": "company_id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                },
+                {
+                    "id": 1,
+                    "seq": 0,
+                    "table": "companies",
+                    "from": "company_id",
+                    "to": "id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                }
+            ],
+            "indexes": [
+                {
+                    "seq": 0,
+                    "name": "warehouses_id_company_id_unique",
+                    "unique": 1,
+                    "origin": "c",
+                    "partial": 0,
+                    "columns": [
+                        "id",
+                        "company_id"
+                    ]
+                }
+            ],
+            "row_count": 15
+        },
+        {
+            "name": "weekly_plans",
+            "sql": "CREATE TABLE \"weekly_plans\" (\"id\" integer primary key autoincrement not null, \"company_id\" integer not null, \"representative_id\" integer not null, \"vehicle_id\" integer not null, \"weekday\" integer not null, \"customer_ids\" text not null, \"origin_latitude\" numeric not null, \"origin_longitude\" numeric not null, \"origin_label\" varchar not null, \"notes\" text, \"is_active\" tinyint(1) not null default '1', \"version\" integer not null default '1', \"created_at\" datetime, \"updated_at\" datetime, foreign key(\"company_id\") references \"companies\"(\"id\") on delete restrict, foreign key(\"company_id\", \"representative_id\") references \"company_user\"(\"company_id\", \"user_id\") on delete restrict, foreign key(\"vehicle_id\", \"company_id\") references \"vehicles\"(\"id\", \"company_id\") on delete restrict)",
+            "columns": [
+                {
+                    "cid": 0,
+                    "name": "id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 1
+                },
+                {
+                    "cid": 1,
+                    "name": "company_id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 2,
+                    "name": "representative_id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 3,
+                    "name": "vehicle_id",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 4,
+                    "name": "weekday",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 5,
+                    "name": "customer_ids",
+                    "type": "TEXT",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 6,
+                    "name": "origin_latitude",
+                    "type": "numeric",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 7,
+                    "name": "origin_longitude",
+                    "type": "numeric",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 8,
+                    "name": "origin_label",
+                    "type": "varchar",
+                    "notnull": 1,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 9,
+                    "name": "notes",
+                    "type": "TEXT",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 10,
+                    "name": "is_active",
+                    "type": "tinyint(1)",
+                    "notnull": 1,
+                    "dflt_value": "'1'",
+                    "pk": 0
+                },
+                {
+                    "cid": 11,
+                    "name": "version",
+                    "type": "INTEGER",
+                    "notnull": 1,
+                    "dflt_value": "'1'",
+                    "pk": 0
+                },
+                {
+                    "cid": 12,
+                    "name": "created_at",
+                    "type": "datetime",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                },
+                {
+                    "cid": 13,
+                    "name": "updated_at",
+                    "type": "datetime",
+                    "notnull": 0,
+                    "dflt_value": null,
+                    "pk": 0
+                }
+            ],
+            "foreign_keys": [
+                {
+                    "id": 0,
+                    "seq": 0,
+                    "table": "vehicles",
+                    "from": "vehicle_id",
+                    "to": "id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                },
+                {
+                    "id": 0,
+                    "seq": 1,
+                    "table": "vehicles",
+                    "from": "company_id",
+                    "to": "company_id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                },
+                {
+                    "id": 1,
+                    "seq": 0,
+                    "table": "company_user",
+                    "from": "company_id",
+                    "to": "company_id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                },
+                {
+                    "id": 1,
+                    "seq": 1,
+                    "table": "company_user",
+                    "from": "representative_id",
+                    "to": "user_id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                },
+                {
+                    "id": 2,
+                    "seq": 0,
+                    "table": "companies",
+                    "from": "company_id",
+                    "to": "id",
+                    "on_update": "NO ACTION",
+                    "on_delete": "RESTRICT",
+                    "match": "NONE"
+                }
+            ],
+            "indexes": [
+                {
+                    "seq": 0,
+                    "name": "weekly_plans_id_company_id_unique",
+                    "unique": 1,
+                    "origin": "c",
+                    "partial": 0,
+                    "columns": [
+                        "id",
+                        "company_id"
+                    ]
+                },
+                {
+                    "seq": 1,
+                    "name": "weekly_plans_company_id_representative_id_weekday_unique",
+                    "unique": 1,
+                    "origin": "c",
+                    "partial": 0,
+                    "columns": [
+                        "company_id",
+                        "representative_id",
+                        "weekday"
+                    ]
+                }
+            ],
+            "row_count": 1
+        }
+    ],
+    "versions": {
+        "php": "8.4.26",
+        "laravel/framework": "v13.35.0",
+        "laravel/sanctum": "v4.3.3"
+    }
+}

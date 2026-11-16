@@ -1,0 +1,12 @@
+{
+  "name": "fieldflow-next",
+  "private": true,
+  "scripts": {
+    "format": "prettier --write public/js/app.js public/js/administration.js public/js/document.js public/css/app.css public/css/administration.css public/css/document.css public/css/workspace.css public/js/custody.js public/css/custody.css public/js/quality.js public/js/roadmap.js public/css/quality.css public/js/archive.js public/js/delegations.js",
+    "format:check": "prettier --check public/js/app.js public/js/administration.js public/js/document.js public/css/app.css public/css/administration.css public/css/document.css public/css/workspace.css public/js/custody.js public/css/custody.css public/js/supply.js public/css/supply.css public/js/quality.js public/js/roadmap.js public/css/quality.css public/js/archive.js public/js/delegations.js",
+    "check": "node --check public/js/app.js && node --check public/js/administration.js && node --check public/js/document.js && node --check public/js/custody.js && node --check public/js/supply.js && node --check public/js/quality.js && node --check public/js/roadmap.js && node --check public/js/archive.js && node --check public/js/delegations.js"
+  },
+  "devDependencies": {
+    "prettier": "3.9.10"
+  }
+}
